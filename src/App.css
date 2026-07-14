@@ -446,7 +446,7 @@ main > section.numbers { padding-top: 0; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
-  background: var(--accent);
+  background: var(--vanilla);
   border-radius: var(--radius);
   padding: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 40px);
 }
@@ -500,6 +500,35 @@ main > section.numbers { padding-top: 0; }
   filter: brightness(1.12) contrast(1.04) saturate(1.05);
 }
 @media (max-width: 760px) { .svc-visual { height: 300px; } }
+
+/* panel 02 ("It runs itself") shows the FULL kiosk render, no dark box —
+   contain so the whole machine is visible, on the light panel surface, with a
+   soft radial mask that fades the render's baked-in background into the panel
+   (same idea as the hero's mask fade). */
+/* give panel 02 more vertical room so the tall kiosk render fits uncropped */
+.svc-panel.tint-mint { height: 560px; }
+@media (max-width: 760px) { .svc-panel.tint-mint { height: auto; } }
+.tint-mint .svc-visual.has-image {
+  padding: 28px;
+  background: var(--panel);
+}
+/* size the image by max-height/width and center it — the grid's place-items
+   centers it, and max-* means it never exceeds the cell, so nothing crops.
+   auto width/height (not 100%) keeps the intrinsic aspect ratio intact. */
+.tint-mint .svc-img {
+  width: auto;
+  height: auto;
+  max-width: 88%;
+  max-height: 88%;
+  object-fit: contain;
+  object-position: center;
+  transform: none;
+  margin: auto;
+  filter: brightness(1.06) contrast(1.02);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
 .svc-panel.flip .svc-text { order: 2; }
 .svc-panel.flip .svc-visual { order: 1; }
 @media (max-width: 760px) { .svc-panel.flip .svc-text { order: 1; } .svc-panel.flip .svc-visual { order: 2; } }
@@ -549,10 +578,10 @@ main > section.numbers { padding-top: 0; }
 .cta-brand .brand-mark { color: #fff; display: inline-flex; }
 .cta-blurb {
   font-size: 17px; line-height: 1.55;
-  color: #fff; opacity: 0.7;
+  color: #fff; opacity: 0.82;
   max-width: 36ch; margin-top: 22px;
 }
-.cta-socials { display: flex; gap: 12px; margin-top: auto; padding-top: 32px; }
+.cta-socials { display: flex; gap: 12px; margin-top: 28px; }
 .social {
   width: 40px; height: 40px; border-radius: 50%;
   background: rgba(255, 255, 255, 0.1); color: #fff;
@@ -568,31 +597,171 @@ main > section.numbers { padding-top: 0; }
   font-size: clamp(26px, 3.2vw, 36px);
   color: #fff; letter-spacing: -0.02em;
 }
-.cta-form {
-  display: flex; align-items: center; flex-wrap: wrap;
-  margin-top: 26px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  padding: 8px;
-  gap: 8px;
+.cta-lede {
+  margin-top: 12px; font-size: 15.5px; line-height: 1.55;
+  color: #fff; opacity: 0.78; max-width: 42ch;
 }
-.cta-input {
-  flex: 1 1 160px; min-width: 0;
+
+/* native multi-field lead form (on the dark CTA band) */
+.lead-form { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.lead-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 480px) { .lead-row { grid-template-columns: 1fr; } }
+
+.lead-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.lead-field label {
+  font-size: 12.5px; font-weight: 500; letter-spacing: 0.01em;
+  color: #fff; opacity: 0.72;
+}
+.lead-input {
+  width: 100%;
   font-family: var(--font-body); font-size: 15px;
-  background: transparent; color: #fff;
-  border: none; outline: none;
-  padding: 12px 16px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color .15s ease, background .15s ease, box-shadow .15s ease;
 }
-.cta-input::placeholder { color: rgba(255, 255, 255, 0.5); }
+.lead-input::placeholder { color: rgba(255, 255, 255, 0.4); }
+.lead-input:hover { border-color: rgba(255, 255, 255, 0.24); }
+.lead-input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(56, 225, 255, 0.18);
+}
+.lead-input[aria-invalid='true'] {
+  border-color: #E8553A;
+  box-shadow: 0 0 0 3px rgba(232, 85, 58, 0.16);
+}
+/* custom dropdown */
+.select { position: relative; }
+.select-trigger {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  cursor: pointer; text-align: left;
+}
+.select-trigger.is-open {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(56, 225, 255, 0.18);
+}
+.select-chevron { flex: none; color: rgba(255, 255, 255, 0.6); transition: transform .18s ease; }
+.select-trigger.is-open .select-chevron { transform: rotate(180deg); color: var(--accent); }
+.select-menu {
+  position: absolute; z-index: 20; top: calc(100% + 6px); left: 0; right: 0;
+  list-style: none; margin: 0; padding: 6px;
+  background: #12181d;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 12px;
+  box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.7);
+  max-height: 260px; overflow-y: auto;
+}
+.select-option {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  padding: 11px 12px; border-radius: 8px;
+  font-size: 15px; color: #fff; cursor: pointer;
+}
+.select-option.is-active { background: rgba(255, 255, 255, 0.08); }
+.select-option.is-selected { color: var(--accent); }
+.select-option svg { flex: none; color: var(--accent); }
+.lead-textarea { resize: vertical; min-height: 76px; line-height: 1.5; }
+.lead-err { font-size: 12.5px; color: #FFB4A3; }
+
 .cta-submit {
-  flex: 1 1 auto; white-space: nowrap;
+  white-space: nowrap;
   background: var(--accent); color: var(--accent-ink);
   border-radius: 10px; font-weight: 600;
   padding: 13px 26px;
 }
 .cta-submit:hover { transform: translateY(-1px); filter: brightness(1.06); }
-.cta-fine { margin-top: 20px; font-size: 13px; color: #fff; opacity: 0.6; }
+.lead-submit { align-self: flex-start; margin-top: 4px; }
+@media (max-width: 480px) { .lead-submit { align-self: stretch; } }
+
+.cta-fine { margin-top: 12px; font-size: 13px; color: #fff; opacity: 0.72; }
 .cta-fine a { color: #fff; text-decoration: underline; text-underline-offset: 2px; }
+
+/* success state */
+.lead-done {
+  margin-top: 24px;
+  display: flex; gap: 16px; align-items: flex-start;
+  background: rgba(56, 225, 255, 0.08);
+  border: 1px solid rgba(56, 225, 255, 0.28);
+  border-radius: 14px;
+  padding: 22px 24px;
+}
+.lead-done-mark {
+  flex: none; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--accent); color: var(--accent-ink);
+}
+.lead-done h3 { font-size: 19px; color: #fff; margin-bottom: 6px; }
+.lead-done p { font-size: 14.5px; line-height: 1.55; color: #fff; opacity: 0.82; }
+.lead-done a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+
+/* ============ FAQ ============ */
+.faq {
+  background: var(--vanilla-soft);
+  border-radius: 24px;
+}
+.faq-head { max-width: 620px; margin-bottom: clamp(28px, 4vw, 44px); }
+.faq-head h2 { font-size: clamp(28px, 4vw, 44px); margin-top: 14px; }
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 1.6vw, 16px);
+}
+@media (max-width: 760px) { .faq-grid { grid-template-columns: 1fr; } }
+
+.faq-item {
+  background: #fff;
+  border: 1px solid var(--vanilla-line);
+  border-radius: 14px;
+  padding: 4px clamp(18px, 2vw, 24px);
+  transition: border-color .18s ease;
+}
+/* alternate the open accent cyan / amber down the two columns */
+.faq-item[open] { border-color: var(--accent-strong); }
+.faq-item:nth-child(even)[open] { border-color: var(--amber-strong); }
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  list-style: none; cursor: pointer;
+  padding: 18px 0;
+  font-family: var(--font-display); font-weight: 600; font-size: 16.5px;
+  color: var(--text);
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-chevron { flex: none; color: var(--muted); transition: transform .2s ease; }
+.faq-item[open] .faq-chevron { transform: rotate(180deg); color: var(--accent-strong); }
+.faq-item:nth-child(even)[open] .faq-chevron { color: var(--amber-strong); }
+.faq-item p {
+  color: var(--muted); font-size: 15px; line-height: 1.6;
+  padding: 0 0 20px; max-width: 52ch;
+}
+
+/* ============ LEGAL PAGES (/terms, /privacy) ============ */
+.legal-doc {
+  max-width: 760px; margin: 0 auto;
+  padding: clamp(48px, 8vw, 96px) var(--pad) clamp(40px, 6vw, 72px);
+}
+/* the shared .eyebrow is light cyan — unreadable on the white legal page.
+   darken it here, and darken the accent links too. */
+.legal-doc .eyebrow { color: #0B8FA8; }
+.legal-doc h1 { font-size: clamp(32px, 5vw, 48px); margin: 14px 0 6px; }
+.legal-meta { font-size: 13px; margin-bottom: 28px; }
+.legal-doc p { color: var(--muted); font-size: 16px; line-height: 1.7; margin-bottom: 18px; }
+.legal-doc a { color: #0B8FA8; text-decoration: underline; text-underline-offset: 2px; }
+.legal-doc a:hover { color: #07708A; }
+.legal-note { font-size: 14px; font-style: italic; }
+.legal-cross {
+  margin-top: 32px; padding-top: 24px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 15px;
+}
+.legal-foot {
+  max-width: 760px; margin: 0 auto; padding: 24px var(--pad) 48px;
+  border-top: 1px solid var(--line-soft);
+}
+.legal-foot a { color: inherit; }
 
 /* footer link columns */
 .foot-links {
@@ -604,7 +773,7 @@ main > section.numbers { padding-top: 0; }
 .foot-col h4 { font-size: 18px; font-family: var(--font-display); font-weight: 600; color: var(--text); margin-bottom: 22px; letter-spacing: -0.01em; }
 .foot-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
 .foot-col a { color: var(--muted); font-size: 15px; transition: color .15s; }
-.foot-col a:hover { color: var(--accent); }
+.foot-col a:hover { color: var(--accent-strong); }
 .foot-bottom {
   max-width: var(--maxw); margin: 0 auto; padding: 24px 0 40px;
   border-top: 1px solid var(--line-soft);
