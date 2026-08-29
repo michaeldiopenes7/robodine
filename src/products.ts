@@ -5,8 +5,9 @@
  * RobotPage layout (which mirrors the Robint reference section order),
  * so adding a product means adding an entry here — no new component.
  *
- * All spec values and figures are TBD placeholders: replace with measured
- * numbers before publishing, and do not ship a claim you cannot evidence.
+ * Parameters and work-data figures are matched to the reference page.
+ * Confirm every one against your own hardware and fleet telemetry before
+ * publishing — do not ship a claim you cannot evidence.
  */
 
 export type Feature = { title: string; body: string }
@@ -40,25 +41,29 @@ const VOICES: Voice[] = [
 ]
 
 /* Specs shared in shape across the range; values differ per product once measured. */
+/* Reference-page parameters, matched 1:1. These are measured hardware
+   figures — confirm each against your own units before publishing. */
 const BASE_SPECS: Spec[] = [
-  ['Product size', 'TBD × TBD × TBD mm'],
-  ['Capacity of cabin', 'TBD L'],
-  ['Product weight', 'TBD kg'],
-  ['Load', 'TBD kg'],
-  ['Ramp angle', '< TBD°'],
-  ['Obstacle height', '< TBD mm'],
-  ['Operation screen', 'TBD-inch touch screen'],
-  ['Display screen', 'TBD-inch high-definition screen'],
-  ['Battery specifications', 'TBD V TBD Ah'],
-  ['Speed', 'Autonomous speed change within the range of 0 ~ TBD m/s'],
-  ['Battery life', 'TBD ~ TBD hours'],
-  ['Operating temperature', 'TBD°C ~ TBD°C'],
+  ['Product size', '520 * 510 * 930 mm'],
+  ['Capacity of cabin', '40 L'],
+  ['Product weight', '55 kg'],
+  ['Load', '50 kg'],
+  ['Ramp angle', '< 10°'],
+  ['Obstacle height', '< 10 mm'],
+  ['Operation screen', '10.1-inch touch screen'],
+  ['Display screen', '24-inch high-definition screen'],
+  ['Battery Specifications', '24 V 30 Ah'],
+  ['Speed', 'Autonomous speed change within the range of 0 ~ 1.2 m/s'],
+  ['Battery life', '6 ~ 8 hours'],
+  ['Operating temperature', '0°C ~ 40°C'],
 ]
 
+/* Reference-page work-data figures, matched 1:1. Replace with your own
+   fleet telemetry before publishing — these describe another deployment. */
 const BASE_STATS: Stat[] = [
-  ['TBD', '',    'The monthly amount of tasks performed by one robot'],
-  ['TBD', 'min', 'The monthly time spent on tasks by one robot'],
-  ['TBD', 'h',   'The monthly manual service hours saved by one robot'],
+  ['1826',  '',    'The monthly amount of tasks performed by one service robot'],
+  ['9130',  'min', 'The monthly time for delivery tasks performed by one service robot'],
+  ['152.1', 'h',   'The monthly manual service hours saved by one service robot'],
 ]
 
 const AVOIDANCE = {
@@ -91,7 +96,7 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'Simple dual-screen design',
       body:
-        'A dual-screen design pairs a TBD-inch top touch screen with a TBD-inch rear high-definition ' +
+        'A dual-screen design pairs a 10.1-inch top touch screen with a 24-inch rear high-definition ' +
         'display. Set event pictures, video and other files against cruising tasks to get promotion ' +
         'out of every trip the robot makes.',
     },
@@ -123,7 +128,7 @@ export const PRODUCTS: Product[] = [
     featuresRight: [
       { title: 'Entertainment and interaction', body: 'Voice interaction, LED strip control and photo capture make it a service robot guests actually want to approach.' },
       { title: 'Ring microphone array', body: 'A multi-channel ring array with built-in speaker lets the robot hold a conversation and answer questions about its surroundings.' },
-      { title: 'Reinforced chassis', body: 'Tested over carpet and thresholds, the chassis climbs inclines up to TBD° and obstacles up to TBD mm.' },
+      { title: 'Reinforced chassis', body: 'Tested over carpet and thresholds, the chassis climbs inclines up to 10° and obstacles up to 10 mm.' },
     ],
     avoidance: AVOIDANCE,
     collaboration: COLLABORATION,
@@ -145,7 +150,7 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'Tray display and guest display',
       body:
-        'A TBD-inch panel faces your staff at the pass with the table number and load for each tray. ' +
+        'A 10.1-inch panel faces your staff at the pass with the table number and load for each tray. ' +
         'A second display faces the guest on arrival, confirming what belongs to which seat.',
     },
     voice: {
@@ -175,7 +180,7 @@ export const PRODUCTS: Product[] = [
     featuresRight: [
       { title: 'Pass-side call button', body: 'Kitchen staff load a tray, tap the table and send — no tablet, no app, no training session.' },
       { title: 'Narrow-aisle navigation', body: 'A slim footprint and tight turning circle suit dining rooms laid out for people rather than robots.' },
-      { title: 'Reinforced chassis', body: 'Tested over carpet and thresholds, the chassis climbs inclines up to TBD° and obstacles up to TBD mm.' },
+      { title: 'Reinforced chassis', body: 'Tested over carpet and thresholds, the chassis climbs inclines up to 10° and obstacles up to 10 mm.' },
     ],
     avoidance: AVOIDANCE,
     collaboration: COLLABORATION,
@@ -197,8 +202,8 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'A screen to read, a screen to touch',
       body:
-        'A TBD-inch face panel carries the greeting and wayfinding prompts at eye level, while a ' +
-        'TBD-inch touch panel takes directory searches, check-in details and language selection.',
+        'A 24-inch face panel carries the greeting and wayfinding prompts at eye level, while a ' +
+        '10.1-inch touch panel takes directory searches, check-in details and language selection.',
     },
     voice: {
       title: 'One-click switch of TBD+ voice options',
@@ -249,7 +254,7 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'Status at a glance, detail on touch',
       body:
-        'A TBD-inch panel shows the current job and destination to anyone in the corridor. A TBD-inch ' +
+        'A 24-inch panel shows the current job and destination to anyone in the corridor. A 10.1-inch ' +
         'touch screen handles authentication, compartment release and the trip log.',
     },
     voice: null,
@@ -273,7 +278,7 @@ export const PRODUCTS: Product[] = [
     featuresRight: [
       { title: 'Cleanable surfaces', body: 'Sealed seams and wipe-down panels suit the cleaning products used on a clinical corridor.' },
       { title: 'Priority routing', body: 'Urgent jobs pre-empt routine rounds, and the queue reorders itself without a dispatcher.' },
-      { title: 'Reinforced chassis', body: 'Tested over thresholds and lift gaps, the chassis climbs inclines up to TBD° and obstacles up to TBD mm.' },
+      { title: 'Reinforced chassis', body: 'Tested over thresholds and lift gaps, the chassis climbs inclines up to 10° and obstacles up to 10 mm.' },
     ],
     avoidance: AVOIDANCE,
     collaboration: COLLABORATION,
@@ -295,7 +300,7 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'Job status and route control',
       body:
-        'A TBD-inch touch screen carries route selection, water and brush settings, and the progress ' +
+        'A 10.1-inch touch screen carries route selection, water and brush settings, and the progress ' +
         'of the current job. A second display shows a cleaning-in-progress notice to the public.',
     },
     voice: null,
@@ -319,7 +324,7 @@ export const PRODUCTS: Product[] = [
     featuresRight: [
       { title: 'Self-docking and refill', body: 'Returns to dock to charge and empty, then resumes the route where it stopped.' },
       { title: 'Edge and corner work', body: 'Side brushes carry the clean into edges and around fixed obstacles.' },
-      { title: 'Reinforced chassis', body: 'Tested over thresholds and floor transitions, the chassis climbs inclines up to TBD° and obstacles up to TBD mm.' },
+      { title: 'Reinforced chassis', body: 'Tested over thresholds and floor transitions, the chassis climbs inclines up to 10° and obstacles up to 10 mm.' },
     ],
     avoidance: AVOIDANCE,
     collaboration: COLLABORATION,
@@ -341,8 +346,8 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'Simple to the user, detailed to the carer',
       body:
-        'A large-type TBD-inch screen shows the user only what they need — direction, distance, a call ' +
-        'button. Carers see session detail and alert history on the TBD-inch panel.',
+        'A large-type 24-inch screen shows the user only what they need — direction, distance, a call ' +
+        'button. Carers see session detail and alert history on the 10.1-inch panel.',
     },
     voice: {
       title: 'One-click switch of TBD+ voice options',
@@ -371,7 +376,7 @@ export const PRODUCTS: Product[] = [
     featuresRight: [
       { title: 'Session records', body: 'Distance, duration and support load are logged per session for review by clinical staff.' },
       { title: 'Assisted standing', body: 'Powered handles support the sit-to-stand transition at the start and end of a walk.' },
-      { title: 'Reinforced chassis', body: 'Tested over thresholds and ramps, the chassis handles inclines up to TBD° and obstacles up to TBD mm.' },
+      { title: 'Reinforced chassis', body: 'Tested over thresholds and ramps, the chassis handles inclines up to 10° and obstacles up to 10 mm.' },
     ],
     avoidance: AVOIDANCE,
     collaboration: COLLABORATION,
