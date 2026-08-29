@@ -276,9 +276,11 @@
 }
 
 /* Backdrop placeholders carry their label in a corner rather than dead
-   centre, so it never collides with the copy laid over the top. */
+   centre, so it never collides with the copy laid over the top, and are
+   dimmed so the placeholder hatching stays quiet behind that copy.
+   The hero backdrop is a real photograph now, so it is deliberately not
+   listed here — it must render unfiltered, at full opacity. */
 .rp-fit-bg,
-.rp-phead-bg,
 .rp-audio-wave {
   flex-direction: row;
   align-items: flex-end;
@@ -288,7 +290,6 @@
   opacity: 0.55;
 }
 .rp-fit-bg span,
-.rp-phead-bg span,
 .rp-audio-wave span { max-width: 28ch; text-align: right; }
 .rp-fit-copy {
   position: relative;
