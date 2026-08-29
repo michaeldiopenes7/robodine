@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { CONTACT_EMAIL } from '../contact'
 
 /*
  * 12. Contact — closing section: the ask on the left, the form on the right.
@@ -7,8 +8,6 @@ import { useState } from 'react'
  * the sales inbox and hands off to the visitor's mail client. Validation
  * runs first so an incomplete enquiry never reaches that step.
  */
-
-const CONTACT_EMAIL = 'info@robodinesolutions.com'
 
 type Fields = {
   firstName: string

@@ -4,7 +4,7 @@ import './RobotPage.css'
 import RobotPage from './RobotPage'
 import { PRODUCTS } from './products'
 
-const SALES_EMAIL = 'sales@robodinesolutions.com'
+import { CONTACT_EMAIL as SALES_EMAIL } from './contact'
 
 /* ───────── minimal client-side routing (no dependency) ───────── */
 function usePath() {

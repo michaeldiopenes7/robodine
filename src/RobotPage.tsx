@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import './RobotPage.css'
 import type { Product } from './products'
+import { CONTACT_EMAIL } from './contact'
 
 import Nav from './components/Nav'
 import Footer from './components/Footer'
@@ -29,8 +30,6 @@ import Contact from './sections/Contact'
  * Media is left as labelled placeholders until the real assets land.
  */
 
-const SALES_EMAIL = 'sales@robodinesolutions.com'
-
 export default function RobotPage({ product }: { product: Product }) {
   useEffect(() => {
     // The lead product is the homepage, so it keeps the site title from
@@ -42,7 +41,7 @@ export default function RobotPage({ product }: { product: Product }) {
 
   return (
     <div className="page rp">
-      <Nav product={product} salesEmail={SALES_EMAIL} />
+      <Nav product={product} salesEmail={CONTACT_EMAIL} />
 
       <Hero product={product} />
 
@@ -72,7 +71,7 @@ export default function RobotPage({ product }: { product: Product }) {
         <Contact />
       </main>
 
-      <Footer product={product} salesEmail={SALES_EMAIL} />
+      <Footer product={product} salesEmail={CONTACT_EMAIL} />
     </div>
   )
 }

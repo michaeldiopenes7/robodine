@@ -132,7 +132,7 @@
   justify-content: center;
   margin-top: 32px;
   padding: 15px 44px;
-  border-radius: 999px;
+  border-radius: 10px;
   border: 1px solid #0B1A20;
   background: #0B1A20;
   color: #fff;
@@ -557,7 +557,7 @@ textarea.rp-field-input { resize: vertical; min-height: 132px; line-height: 1.6;
 .rp-form-submit {
   width: 100%;
   padding: 15px 38px;
-  border-radius: 999px;
+  border-radius: 10px;
   font-size: 15.5px;
   background: #0B1A20;
   color: #fff;
