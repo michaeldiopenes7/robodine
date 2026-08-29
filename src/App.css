@@ -234,15 +234,6 @@
 .btn-dark { background: #0B1A20; color: #fff; }
 .btn-dark:hover { transform: translateY(-1px); background: #16282F; }
 
-/* ============ section frame ============ */
-main > section {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: clamp(64px, 9vw, 120px) var(--pad);
-}
-main > section.logos { padding-top: 0; padding-bottom: 0; }
-main > section.numbers { padding-top: 0; }
-
 /* ============ HERO (on gradient) ============ */
 .hero {
   max-width: var(--maxw); margin: 0 auto;
