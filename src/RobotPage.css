@@ -126,12 +126,13 @@
   gap: clamp(32px, 5vw, 72px);
 }
 .rp-phead-robot {
-  max-width: 520px;
+  /* The unit is the subject of the frame, so it runs large and sits left
+     of centre. It can exceed its grid column — the shift is negative, into
+     the outer margin — which is why the column is allowed to overflow. */
+  max-width: 620px;
   width: 100%;
   justify-self: center;
-  /* Nudge the unit forward so it sits nearer the centre of the frame
-     rather than hugging the left edge of its column. */
-  transform: translateX(clamp(12px, 4vw, 64px));
+  transform: translateX(clamp(-64px, -3.5vw, -16px));
 }
 .rp-phead-robot img {
   display: block;
