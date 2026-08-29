@@ -88,11 +88,12 @@ export const PRODUCTS: Product[] = [
     title: 'Service Robot',
     tagline: 'front-of-house service robot',
     intro:
-      'Host pairs serious engineering with a shape guests warm to on sight — clean, compact and ' +
-      'approachable rather than industrial. It earns the name “commercial service robot” in both ' +
-      'settings at once: it delivers and collects items, leads guests to a table or a room, and ' +
-      'works a banquet floor, while photo capture, automatic hospitality and voice interaction give ' +
-      'people a reason to engage with it rather than step around it.',
+      'Rockit combines elements of technology, simplicity and fashion and is eye-catching for its ' +
+      'cool and cute appearance. It redefines the concept “commercial service robot” by having its ' +
+      'values truly realized in both commercial and service scenarios. It provides you with various ' +
+      'services such as item delivery and pick up, intelligent way leading and banquet reception, ' +
+      'and has interactive functions including photo taking, automatic hospitality service and ' +
+      'voice interaction.',
     dualScreen: {
       title: 'Simple dual-screen design',
       body:
