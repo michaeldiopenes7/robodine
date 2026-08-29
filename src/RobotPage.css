@@ -104,8 +104,26 @@
   position: absolute;
   inset: 0;
   z-index: 0;
-  border-radius: 0;
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Warm the marble slightly toward the page ground and lift text contrast
+   over the brighter areas of the colonnade. */
+.rp-phead::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0.72) 0%,
+    rgba(255, 255, 255, 0.38) 42%,
+    rgba(255, 255, 255, 0.62) 100%
+  );
+  pointer-events: none;
 }
 .rp-phead-inner {
   position: relative;
@@ -119,7 +137,13 @@
   align-items: center;
   gap: clamp(32px, 5vw, 72px);
 }
-.rp-phead-robot { max-width: 460px; width: 100%; justify-self: center; }
+.rp-phead-robot { max-width: 430px; width: 100%; justify-self: center; }
+.rp-phead-robot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 26px 42px rgba(9, 30, 40, 0.28));
+}
 .rp-phead-intro h1 {
   font-size: clamp(38px, 5.6vw, 68px);
   font-weight: 500;
