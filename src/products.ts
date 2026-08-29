@@ -83,15 +83,16 @@ const COLLABORATION = {
 export const PRODUCTS: Product[] = [
   {
     slug: '',
-    navLabel: 'Host service robot',
+    navLabel: 'Service robot',
     name: 'Host',
     title: 'Service Robot',
     tagline: 'front-of-house service robot',
     intro:
-      'Host combines technology, simplicity and a design guests warm to on sight. It earns the name ' +
-      '“commercial service robot” in both commercial and service settings — running plates and parcels, ' +
-      'leading guests to a table or a room, and working a banquet floor — with interactive functions ' +
-      'including photo capture, automatic hospitality and voice interaction.',
+      'Host pairs serious engineering with a shape guests warm to on sight — clean, compact and ' +
+      'approachable rather than industrial. It earns the name “commercial service robot” in both ' +
+      'settings at once: it delivers and collects items, leads guests to a table or a room, and ' +
+      'works a banquet floor, while photo capture, automatic hospitality and voice interaction give ' +
+      'people a reason to engage with it rather than step around it.',
     dualScreen: {
       title: 'Simple dual-screen design',
       body:
