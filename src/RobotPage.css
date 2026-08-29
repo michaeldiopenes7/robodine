@@ -125,7 +125,14 @@
   align-items: center;
   gap: clamp(32px, 5vw, 72px);
 }
-.rp-phead-robot { max-width: 430px; width: 100%; justify-self: center; }
+.rp-phead-robot {
+  max-width: 520px;
+  width: 100%;
+  justify-self: center;
+  /* Nudge the unit forward so it sits nearer the centre of the frame
+     rather than hugging the left edge of its column. */
+  transform: translateX(clamp(12px, 4vw, 64px));
+}
 .rp-phead-robot img {
   display: block;
   width: 100%;
@@ -134,9 +141,12 @@
 }
 .rp-phead-intro h1 {
   font-size: clamp(38px, 5.6vw, 68px);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.015em;
-  color: var(--accent-strong);
+  /* The backdrop is a photograph — bright, warm and uneven — so the mid
+     teal accent could not be relied on for contrast. This near-black ink
+     clears AAA over every part of the marble, including the lit columns. */
+  color: #0B1A20;
 }
 .rp-phead-btn {
   display: inline-flex;
