@@ -110,28 +110,14 @@
   object-position: center;
 }
 
-/* Warm the marble slightly toward the page ground and lift text contrast
-   over the brighter areas of the colonnade. */
-.rp-phead::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background: linear-gradient(
-    100deg,
-    rgba(255, 255, 255, 0.72) 0%,
-    rgba(255, 255, 255, 0.38) 42%,
-    rgba(255, 255, 255, 0.62) 100%
-  );
-  pointer-events: none;
-}
 .rp-phead-inner {
   position: relative;
   z-index: 1;
   max-width: var(--maxw);
   margin: 0 auto;
-  padding: clamp(56px, 7vw, 96px) var(--pad);
-  min-height: clamp(520px, 72vh, 780px);
+  /* Top padding clears the floating nav, which overlays this section. */
+  padding: clamp(128px, 13vw, 176px) var(--pad) clamp(56px, 7vw, 96px);
+  min-height: clamp(560px, 88vh, 900px);
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
