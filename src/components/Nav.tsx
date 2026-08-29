@@ -1,10 +1,7 @@
-import { useState } from 'react'
-import { PRODUCTS, type Product } from '../products'
+import type { Product } from '../products'
 
-/* Site nav — RoboDine Solutions brand, with a dropdown for the robot range. */
+/* Site nav — RoboDine Solutions brand, product links, sales CTA. */
 export default function Nav({ product, salesEmail }: { product: Product; salesEmail: string }) {
-  const [open, setOpen] = useState(false)
-
   return (
     <header className="nav">
       <div className="nav-inner">
@@ -22,42 +19,9 @@ export default function Nav({ product, salesEmail }: { product: Product; salesEm
         <span className="nav-divider" aria-hidden="true" />
 
         <nav className="nav-links">
-          <div
-            className={'rp-menu' + (open ? ' is-open' : '')}
-            onMouseEnter={() => setOpen(true)}
-            onMouseLeave={() => setOpen(false)}
-          >
-            <button
-              type="button"
-              className="rp-menu-btn"
-              aria-expanded={open}
-              aria-haspopup="true"
-              onClick={() => setOpen((v) => !v)}
-            >
-              Robots
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden="true">
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </button>
-
-            <div className="rp-menu-drop" role="menu">
-              {PRODUCTS.map((p) => {
-                const current = p.slug === product.slug
-                return (
-                  <a
-                    key={p.slug || 'lead'}
-                    role="menuitem"
-                    href={p.slug ? `/${p.slug}` : '/'}
-                    className={current ? 'is-current' : undefined}
-                    aria-current={current ? 'page' : undefined}
-                  >
-                    {p.navLabel}
-                  </a>
-                )
-              })}
-            </div>
-          </div>
-
+          <a href="/" aria-current={product.slug ? undefined : 'page'}>
+            {product.navLabel}
+          </a>
           <a href="#rp-specs">Specs</a>
         </nav>
 

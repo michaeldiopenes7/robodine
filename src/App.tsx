@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import './RobotPage.css'
 import RobotPage from './RobotPage'
-import { PRODUCTS, findProduct } from './products'
+import { PRODUCTS } from './products'
 
 const SALES_EMAIL = 'sales@robodinesolutions.com'
 
@@ -51,23 +51,13 @@ export default function App() {
   if (path === '/terms') return <LegalPage page="terms" />
   if (path === '/privacy') return <LegalPage page="privacy" />
 
-  // The robot range is the site: `/` is the lead product, `/<slug>` each
-  // other one. Legacy /robot and /robot/<slug> links redirect to the new
-  // paths so anything already shared keeps working.
-  const legacy = path === '/robot' || path.startsWith('/robot/')
-  const raw = legacy ? path.slice('/robot'.length) : path
-  const slug = raw.replace(/^\//, '').replace(/\/$/, '')
-  const product = findProduct(slug)
-
-  if (product) {
-    if (legacy) {
-      const to = product.slug ? `/${product.slug}` : '/'
-      window.history.replaceState({}, '', to)
-    }
-    return <RobotPage product={product} />
+  // The service robot is the site, so every remaining path resolves to it.
+  // Older /robot links are rewritten to `/` so anything already shared
+  // keeps working and does not sit on a duplicate URL.
+  if (path === '/robot' || path.startsWith('/robot/')) {
+    window.history.replaceState({}, '', '/')
   }
 
-  // Unknown path — show the lead product rather than a blank page.
   return <RobotPage product={PRODUCTS[0]} />
 }
 

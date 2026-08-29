@@ -1,7 +1,7 @@
-import { PRODUCTS } from '../products'
+import type { Product } from '../products'
 
-/* Site footer — gradient rule, product columns, RoboDine Solutions brand. */
-export default function Footer({ salesEmail }: { salesEmail: string }) {
+/* Site footer — gradient rule, product and contact columns. */
+export default function Footer({ product, salesEmail }: { product: Product; salesEmail: string }) {
   return (
     <footer className="rp-foot">
       <div className="rp-foot-rule" aria-hidden="true" />
@@ -10,11 +10,7 @@ export default function Footer({ salesEmail }: { salesEmail: string }) {
         <div className="rp-foot-cols">
           <div className="rp-foot-col">
             <h3>Products</h3>
-            {PRODUCTS.map((p) => (
-              <a key={p.slug || 'lead'} href={p.slug ? `/${p.slug}` : '/'}>
-                {p.navLabel}
-              </a>
-            ))}
+            <a href="/">{product.navLabel}</a>
           </div>
           <div className="rp-foot-col">
             <h3>Contact</h3>

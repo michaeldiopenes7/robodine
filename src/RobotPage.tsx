@@ -70,7 +70,7 @@ export default function RobotPage({ product }: { product: Product }) {
         <Parameters product={product} />
       </main>
 
-      <Footer salesEmail={SALES_EMAIL} />
+      <Footer product={product} salesEmail={SALES_EMAIL} />
     </div>
   )
 }
