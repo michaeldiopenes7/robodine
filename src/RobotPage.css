@@ -129,10 +129,10 @@
   /* The unit is the subject of the frame, so it runs large and sits left
      of centre. It can exceed its grid column — the shift is negative, into
      the outer margin — which is why the column is allowed to overflow. */
-  max-width: 620px;
+  max-width: 680px;
   width: 100%;
   justify-self: center;
-  transform: translateX(clamp(-64px, -3.5vw, -16px));
+  transform: translateX(clamp(16px, 2.5vw, 56px));
 }
 .rp-phead-robot img {
   display: block;
@@ -463,8 +463,18 @@
   .rp-audio-cards { grid-template-columns: 1fr; }
 }
 @media (max-width: 780px) {
-  .rp-phead-inner { grid-template-columns: 1fr; text-align: center; }
-  .rp-phead-robot { max-width: 300px; }
+  /* Mobile hero: the robot render is dropped and the backdrop carries the
+     section on its own, with the title and CTA centred over it. A cutout
+     scaled to a phone column reads as a small object rather than a
+     subject, and it crowds the copy it is meant to support. */
+  .rp-phead-robot { display: none; }
+  .rp-phead-inner {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    min-height: clamp(460px, 72vh, 620px);
+  }
+  .rp-phead-intro h1 { font-size: clamp(32px, 8.5vw, 46px); }
   .rp-imgs-2 { grid-template-columns: 1fr; }
   .rp-imgs-mosaic {
     grid-template-columns: 1fr;
