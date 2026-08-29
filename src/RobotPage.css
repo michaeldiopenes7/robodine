@@ -453,65 +453,124 @@
   .rp-foot-cols { grid-template-columns: 1fr; }
 }
 
-/* ---- 12. contact form ----
-   Fields sit on the grey parameters surface, so they take the white ground
-   and the same hairline/radius the rest of the page uses. */
-.rp-form {
-  max-width: 900px;
-  margin: 0 auto;
+/* ---- 12. contact ----
+   Dark surface so the closing section reads as its own block rather than
+   running on from the grey parameters band above it. The ask sits on the
+   left; the form sits on a raised white card to the right. */
+.rp-contact-grid {
   display: grid;
-  gap: clamp(16px, 2vw, 22px);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(36px, 6vw, 88px);
+  align-items: start;
+}
+
+.rp-contact-pitch h2 {
+  font-size: clamp(28px, 3.6vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.rp-contact-pitch > p {
+  margin-top: 18px;
+  max-width: 44ch;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.rp-contact-direct {
+  margin-top: clamp(28px, 4vw, 44px);
+  display: grid;
+  gap: 20px;
+}
+.rp-contact-direct dt {
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+.rp-contact-direct dd {
+  margin: 6px 0 0;
+  font-size: 16.5px;
+  color: #fff;
+}
+.rp-contact-direct a { color: #fff; border-bottom: 1px solid rgba(255, 255, 255, 0.35); }
+.rp-contact-direct a:hover { border-bottom-color: #fff; }
+
+/* form card */
+.rp-form {
+  display: grid;
+  gap: clamp(14px, 1.8vw, 20px);
+  padding: clamp(24px, 3vw, 38px);
+  border-radius: var(--radius);
+  background: var(--ground);
+  box-shadow: 0 24px 60px rgba(4, 12, 34, 0.28);
 }
 .rp-form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: clamp(16px, 2vw, 22px);
+  gap: clamp(14px, 1.8vw, 20px);
 }
 
-.rp-field { display: grid; gap: 8px; }
+.rp-field { display: grid; gap: 7px; }
 .rp-field-label {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
   color: var(--muted-2);
 }
-.rp-field-optional { font-weight: 400; color: var(--muted-2); opacity: 0.75; }
+.rp-field-optional { font-weight: 400; opacity: 0.75; }
 
 .rp-field-input {
   width: 100%;
   font-family: var(--font-body);
   font-size: 15.5px;
   color: var(--text);
-  background: var(--ground);
+  background: var(--panel);
   border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 14px 16px;
+  border-radius: 10px;
+  padding: 13px 15px;
   outline: none;
-  transition: border-color .16s ease, box-shadow .16s ease;
+  transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
 }
-.rp-field-input::placeholder { color: var(--muted-2); opacity: 0.7; }
+.rp-field-input::placeholder { color: var(--muted-2); opacity: 0.65; }
 .rp-field-input:hover { border-color: #CBD8E1; }
 .rp-field-input:focus-visible {
+  background: var(--ground);
   border-color: var(--accent-strong);
   box-shadow: 0 0 0 3px rgba(9, 117, 137, 0.16);
 }
-textarea.rp-field-input { resize: vertical; min-height: 150px; line-height: 1.6; }
+textarea.rp-field-input { resize: vertical; min-height: 132px; line-height: 1.6; }
 
 .rp-field-input[aria-invalid='true'] {
   border-color: var(--warn);
   box-shadow: 0 0 0 3px rgba(232, 85, 58, 0.14);
 }
-.rp-field-error { color: var(--warn); font-size: 13.5px; }
+.rp-field-error { color: var(--warn); font-size: 13px; }
 
 .rp-form-actions {
-  display: grid;
-  justify-items: center;
-  gap: 12px;
-  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 4px;
 }
-.rp-form-submit { padding: 14px 44px; border-radius: 999px; font-size: 16px; }
-.rp-form-note { color: var(--muted-2); font-size: 13.5px; text-align: center; }
+.rp-form-submit {
+  padding: 13px 34px;
+  border-radius: 999px;
+  font-size: 15.5px;
+  background: var(--accent-strong);
+  color: #fff;
+}
+.rp-form-submit:hover { background: #0A8AA1; transform: translateY(-1px); }
+.rp-form-note { color: var(--muted-2); font-size: 13px; max-width: 30ch; }
 
-@media (max-width: 780px) {
+@media (max-width: 980px) {
+  .rp-contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
   .rp-form-row { grid-template-columns: 1fr; }
+  .rp-form-actions { justify-content: center; text-align: center; }
 }

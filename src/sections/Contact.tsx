@@ -1,9 +1,7 @@
 import { useState } from 'react'
-import Band from '../components/Band'
-import SectionHead from '../components/SectionHead'
 
 /*
- * 12. Contact — enquiry form.
+ * 12. Contact — closing section: the ask on the left, the form on the right.
  *
  * There is no backend, so a valid submission composes a pre-filled mail to
  * the sales inbox and hands off to the visitor's mail client. Validation
@@ -76,55 +74,74 @@ export default function Contact() {
   }
 
   return (
-    <Band tone="grey" id="contact">
-      <SectionHead
-        title="Contact Us"
-        body="Tell us about the venue and what you need the robot to do, and we will come back with a specification and a price."
-      />
-
-      <form className="rp-form" onSubmit={onSubmit} noValidate>
-        <div className="rp-form-row">
-          <Field
-            id="firstName" label="First Name" value={fields.firstName}
-            onChange={set('firstName')} error={errors.firstName} required
-          />
-          <Field
-            id="lastName" label="Last Name" value={fields.lastName}
-            onChange={set('lastName')} error={errors.lastName} required
-          />
-        </div>
-
-        <div className="rp-form-row">
-          <Field
-            id="phone" label="Phone" type="tel" autoComplete="tel"
-            value={fields.phone} onChange={set('phone')} error={errors.phone}
-          />
-          <Field
-            id="email" label="Email" type="email" autoComplete="email"
-            value={fields.email} onChange={set('email')} error={errors.email} required
-          />
-        </div>
-
-        <Field
-          id="message" label="Message" textarea value={fields.message}
-          onChange={set('message')} error={errors.message} required
-        />
-
-        <div className="rp-form-actions">
-          <button type="submit" className="btn btn-dark rp-form-submit">
-            Submit
-            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
-              <path d="M5 12h14M13 6l6 6-6 6" />
-            </svg>
-          </button>
-          <p className="rp-form-note" role="status">
-            {sent
-              ? 'Your mail app should have opened with the enquiry ready to send.'
-              : `Sends to ${CONTACT_EMAIL} via your mail app.`}
+    <section className="rp-band rp-band-dark rp-contact" id="contact">
+      <div className="rp-inner rp-contact-grid">
+        {/* Left rail: the ask, plus the direct routes for people who
+            would rather not fill in a form at all. */}
+        <div className="rp-contact-pitch">
+          <h2>Talk to us about your floor</h2>
+          <p>
+            Tell us the venue, the shift and what you need carried or greeted,
+            and we will come back with a specification, a fleet size and a price.
           </p>
+
+          <dl className="rp-contact-direct">
+            <div>
+              <dt>Email</dt>
+              <dd><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></dd>
+            </div>
+            <div>
+              <dt>Response time</dt>
+              <dd>One business day</dd>
+            </div>
+          </dl>
         </div>
-      </form>
-    </Band>
+
+        {/* Right rail: the form itself, on a raised card. */}
+        <form className="rp-form" onSubmit={onSubmit} noValidate>
+          <div className="rp-form-row">
+            <Field
+              id="firstName" label="First Name" value={fields.firstName}
+              onChange={set('firstName')} error={errors.firstName} required
+            />
+            <Field
+              id="lastName" label="Last Name" value={fields.lastName}
+              onChange={set('lastName')} error={errors.lastName} required
+            />
+          </div>
+
+          <div className="rp-form-row">
+            <Field
+              id="phone" label="Phone" type="tel" autoComplete="tel"
+              value={fields.phone} onChange={set('phone')} error={errors.phone}
+            />
+            <Field
+              id="email" label="Email" type="email" autoComplete="email"
+              value={fields.email} onChange={set('email')} error={errors.email} required
+            />
+          </div>
+
+          <Field
+            id="message" label="Message" textarea value={fields.message}
+            onChange={set('message')} error={errors.message} required
+          />
+
+          <div className="rp-form-actions">
+            <button type="submit" className="btn rp-form-submit">
+              Submit
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" aria-hidden="true">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </button>
+            <p className="rp-form-note" role="status">
+              {sent
+                ? 'Your mail app should have opened with the enquiry ready to send.'
+                : 'Opens in your mail app so you can review before sending.'}
+            </p>
+          </div>
+        </form>
+      </div>
+    </section>
   )
 }
 
