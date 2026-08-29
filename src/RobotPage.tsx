@@ -15,13 +15,14 @@ import ObstacleAvoidance from './sections/ObstacleAvoidance'
 import Collaboration from './sections/Collaboration'
 import WorkData from './sections/WorkData'
 import Parameters from './sections/Parameters'
+import Contact from './sections/Contact'
 
 /*
  * Product page — one shared layout for the whole robot range.
  *
  * Section order mirrors the reference page: hero, intro + video,
  * dual-screen, voice, human recognition, cruising, features, obstacle
- * avoidance, multi-robot collaboration, work data, parameters.
+ * avoidance, multi-robot collaboration, work data, parameters, contact.
  *
  * Each section is its own component under sections/ and reads from the
  * Product record in products.ts, so this file stays a plain running order.
@@ -43,7 +44,7 @@ export default function RobotPage({ product }: { product: Product }) {
     <div className="page rp">
       <Nav product={product} salesEmail={SALES_EMAIL} />
 
-      <Hero product={product} salesEmail={SALES_EMAIL} />
+      <Hero product={product} />
 
       <main>
         <Intro product={product} />
@@ -68,6 +69,7 @@ export default function RobotPage({ product }: { product: Product }) {
         <Collaboration product={product} />
         <WorkData product={product} />
         <Parameters product={product} />
+        <Contact />
       </main>
 
       <Footer product={product} salesEmail={SALES_EMAIL} />

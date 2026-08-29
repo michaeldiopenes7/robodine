@@ -452,3 +452,66 @@
   .rp-fit-copy > *, .rp-fit-right > * { max-width: none; margin-left: 0; }
   .rp-foot-cols { grid-template-columns: 1fr; }
 }
+
+/* ---- 12. contact form ----
+   Fields sit on the grey parameters surface, so they take the white ground
+   and the same hairline/radius the rest of the page uses. */
+.rp-form {
+  max-width: 900px;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(16px, 2vw, 22px);
+}
+.rp-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(16px, 2vw, 22px);
+}
+
+.rp-field { display: grid; gap: 8px; }
+.rp-field-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted-2);
+}
+.rp-field-optional { font-weight: 400; color: var(--muted-2); opacity: 0.75; }
+
+.rp-field-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15.5px;
+  color: var(--text);
+  background: var(--ground);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  outline: none;
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.rp-field-input::placeholder { color: var(--muted-2); opacity: 0.7; }
+.rp-field-input:hover { border-color: #CBD8E1; }
+.rp-field-input:focus-visible {
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 3px rgba(9, 117, 137, 0.16);
+}
+textarea.rp-field-input { resize: vertical; min-height: 150px; line-height: 1.6; }
+
+.rp-field-input[aria-invalid='true'] {
+  border-color: var(--warn);
+  box-shadow: 0 0 0 3px rgba(232, 85, 58, 0.14);
+}
+.rp-field-error { color: var(--warn); font-size: 13.5px; }
+
+.rp-form-actions {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+.rp-form-submit { padding: 14px 44px; border-radius: 999px; font-size: 16px; }
+.rp-form-note { color: var(--muted-2); font-size: 13.5px; text-align: center; }
+
+@media (max-width: 780px) {
+  .rp-form-row { grid-template-columns: 1fr; }
+}

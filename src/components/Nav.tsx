@@ -23,6 +23,7 @@ export default function Nav({ product, salesEmail }: { product: Product; salesEm
             {product.navLabel}
           </a>
           <a href="#rp-specs">Specs</a>
+          <a href="#contact">Contact</a>
         </nav>
 
         <div className="nav-right" style={{ marginLeft: 'auto' }}>

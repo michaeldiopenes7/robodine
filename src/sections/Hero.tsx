@@ -2,7 +2,7 @@ import Slot from '../components/Slot'
 import type { Product } from '../products'
 
 /* 1. Hero — full-bleed backdrop, robot left, title + CTA right. */
-export default function Hero({ product, salesEmail }: { product: Product; salesEmail: string }) {
+export default function Hero({ product }: { product: Product }) {
   return (
     <section className="rp-phead" id="top">
       <Slot className="rp-phead-bg" label="Hero background — venue interior" />
@@ -12,7 +12,7 @@ export default function Hero({ product, salesEmail }: { product: Product; salesE
         </div>
         <div className="rp-phead-intro">
           <h1>{product.title}</h1>
-          <a className="rp-phead-btn" href={`mailto:${salesEmail}`}>Contact Us</a>
+          <a className="rp-phead-btn" href="#contact">Contact Us</a>
         </div>
       </div>
     </section>
