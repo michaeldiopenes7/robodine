@@ -130,11 +130,11 @@ export default function Contact() {
             <button type="submit" className="btn rp-form-submit">
               Submit
             </button>
-            <p className="rp-form-note" role="status">
-              {sent
-                ? 'Your mail app should have opened with the enquiry ready to send.'
-                : 'Opens in your mail app so you can review before sending.'}
-            </p>
+            {sent && (
+              <p className="rp-form-note" role="status">
+                Your mail app should have opened with the enquiry ready to send.
+              </p>
+            )}
           </div>
         </form>
       </div>

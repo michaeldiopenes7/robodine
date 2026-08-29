@@ -550,27 +550,24 @@ textarea.rp-field-input { resize: vertical; min-height: 132px; line-height: 1.6;
 .rp-field-error { color: var(--warn); font-size: 13px; }
 
 .rp-form-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 12px;
   margin-top: 4px;
 }
 .rp-form-submit {
-  padding: 13px 38px;
+  width: 100%;
+  padding: 15px 38px;
   border-radius: 999px;
   font-size: 15.5px;
   background: #0B1A20;
   color: #fff;
 }
 .rp-form-submit:hover { background: #16282F; transform: translateY(-1px); }
-.rp-form-note { color: var(--muted-2); font-size: 13px; max-width: 30ch; }
+.rp-form-note { color: var(--muted-2); font-size: 13px; text-align: center; }
 
 @media (max-width: 980px) {
   .rp-contact-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 620px) {
   .rp-form-row { grid-template-columns: 1fr; }
-  .rp-form-actions { justify-content: center; text-align: center; }
 }
