@@ -518,20 +518,20 @@
 .rp-fit:has(.rp-fit-left)::after {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.94) 0%,
-    rgba(255, 255, 255, 0.82) 26%,
-    rgba(255, 255, 255, 0.42) 48%,
-    rgba(255, 255, 255, 0) 68%
+    rgba(4, 18, 46, 0.64) 0%,
+    rgba(4, 18, 46, 0.48) 26%,
+    rgba(4, 18, 46, 0.22) 48%,
+    rgba(5, 25, 58, 0) 68%
   );
 }
 .rp-fit:has(.rp-fit-right)::after {
   background: linear-gradient(
     270deg,
-    rgba(255, 255, 255, 0.97) 0%,
-    rgba(255, 255, 255, 0.93) 30%,
-    rgba(255, 255, 255, 0.74) 52%,
-    rgba(255, 255, 255, 0.34) 72%,
-    rgba(255, 255, 255, 0) 88%
+    rgba(4, 18, 46, 0.68) 0%,
+    rgba(4, 18, 46, 0.58) 30%,
+    rgba(4, 18, 46, 0.36) 52%,
+    rgba(4, 18, 46, 0.16) 72%,
+    rgba(5, 25, 58, 0) 88%
   );
 }
 
@@ -543,11 +543,11 @@
   .rp-fit:has(.rp-fit-right)::after {
     background: linear-gradient(
       90deg,
-      rgba(255, 255, 255, 0.97) 0%,
-      rgba(255, 255, 255, 0.93) 34%,
-      rgba(255, 255, 255, 0.74) 58%,
-      rgba(255, 255, 255, 0.36) 78%,
-      rgba(255, 255, 255, 0) 92%
+      rgba(4, 18, 46, 0.70) 0%,
+      rgba(4, 18, 46, 0.56) 34%,
+      rgba(4, 18, 46, 0.34) 58%,
+      rgba(4, 18, 46, 0.14) 78%,
+      rgba(5, 25, 58, 0) 92%
     );
   }
 }
@@ -568,13 +568,14 @@
   /* Wide enough to break into two lines, narrow enough that it stacks
      instead of running the section width into the robot. */
   max-width: 28ch;
+  color: #F7FBFF;
   font-size: clamp(26px, 3.4vw, 40px);
   font-weight: 500;
   letter-spacing: -0.01em;
 }
 .rp-fit-copy p {
   margin-top: 18px;
-  color: var(--muted);
+  color: rgba(247, 251, 255, 0.84);
   font-size: 17px;
   line-height: 1.65;
 }

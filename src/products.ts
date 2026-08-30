@@ -36,9 +36,9 @@ export type Product = {
 }
 
 const VOICES: Voice[] = [
-  { id: 'child', label: 'Child', length: '6"', note: 'Bright and playful — family venues and events.' },
-  { id: 'men',   label: 'Men',   length: '4"', note: 'Warm and assured — hotels, offices and clinics.' },
-  { id: 'miss',  label: 'Miss',  length: '5"', note: 'Light and welcoming — dining rooms and receptions.' },
+  { id: 'child', label: 'Child', length: '10"', note: 'Bright and playful — family venues and events.' },
+  { id: 'men',   label: 'Men',   length: '10"', note: 'Warm and assured — hotels, offices and clinics.' },
+  { id: 'miss',  label: 'Miss',  length: '10"', note: 'Light and welcoming — dining rooms and receptions.' },
 ]
 
 /* Specs shared in shape across the range; values differ per product once measured. */
