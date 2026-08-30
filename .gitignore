@@ -31,3 +31,6 @@ _backup-*/
 
 # Video masters — ship the compressed copy in public/media instead
 src/assets/*.mp4
+
+# GIF masters — ship the encoded video in public/media instead
+src/assets/*.gif

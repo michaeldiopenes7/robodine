@@ -105,7 +105,7 @@
 
 /* nav — floating white pill, sticky on scroll */
 .nav {
-  position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
   padding: clamp(12px, 2vw, 18px) var(--pad) 0;
   background: transparent;
 }

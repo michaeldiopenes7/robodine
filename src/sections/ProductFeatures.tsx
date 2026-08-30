@@ -1,6 +1,6 @@
 import Band from '../components/Band'
-import Slot from '../components/Slot'
 import type { Feature, Product } from '../products'
+import productFeatures from '../assets/product-features.png'
 
 /* 7. Product features — three items, centred robot, three items. */
 export default function ProductFeatures({ product }: { product: Product }) {
@@ -12,7 +12,12 @@ export default function ProductFeatures({ product }: { product: Product }) {
           {product.featuresLeft.map((f) => <FuncItem key={f.title} {...f} />)}
         </div>
         <div className="rp-func-img">
-          <Slot ratio="3 / 4" label={`Front render — ${product.name}, full body`} />
+          <img
+            src={productFeatures}
+            alt={`${product.name} service robot, full body front view`}
+            width={670}
+            height={790}
+          />
         </div>
         <div className="rp-func-col">
           {product.featuresRight.map((f) => <FuncItem key={f.title} {...f} />)}

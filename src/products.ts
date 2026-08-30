@@ -21,6 +21,7 @@ export type Product = {
   name: string          // product name, used in headings
   title: string         // hero H1
   tagline: string       // <title> / meta description
+  heroLead: string      // one line under the hero H1
   intro: string
   dualScreen: { title: string; body: string }
   voice: { title: string; body: string; voices: Voice[] } | null
@@ -35,9 +36,9 @@ export type Product = {
 }
 
 const VOICES: Voice[] = [
-  { id: 'child',     label: 'Child',     length: '10"', note: 'Bright and playful — family venues and events.' },
-  { id: 'adult',     label: 'Adult',     length: '10"', note: 'Warm and unhurried — casual dining and cafés.' },
-  { id: 'concierge', label: 'Concierge', length: '10"', note: 'Short and precise — hotels, clinics, offices.' },
+  { id: 'child', label: 'Child', length: '6"', note: 'Bright and playful — family venues and events.' },
+  { id: 'men',   label: 'Men',   length: '4"', note: 'Warm and assured — hotels, offices and clinics.' },
+  { id: 'miss',  label: 'Miss',  length: '5"', note: 'Light and welcoming — dining rooms and receptions.' },
 ]
 
 /* Specs shared in shape across the range; values differ per product once measured. */
@@ -61,32 +62,36 @@ const BASE_SPECS: Spec[] = [
 /* Reference-page work-data figures, matched 1:1. Replace with your own
    fleet telemetry before publishing — these describe another deployment. */
 const BASE_STATS: Stat[] = [
-  ['1826',  '',    'The monthly amount of tasks performed by one service robot'],
-  ['9130',  'min', 'The monthly time for delivery tasks performed by one service robot'],
-  ['152.1', 'h',   'The monthly manual service hours saved by one service robot'],
+  ['1826',  '',    'The monthly amount of tasks performed by a hotel service robot'],
+  ['9130',  'min', 'The monthly time for delivery tasks performed by a hotel service robot'],
+  ['152.1', 'h',   'The monthly manual service hours saved by a hotel service robot'],
 ]
 
 const AVOIDANCE = {
   title: 'High-accuracy obstacle avoidance',
   body:
-    '360° stereo perception through multi-sensor fusion: TBD sets of ultrasonic radar front and rear, ' +
-    'a ToF camera on the front of the chassis, and lidar at the join between the chassis and the body.',
+    '360° stereo perception are secured through multi-sensor fusion technology, 5 sets of ultrasonic ' +
+    'radars built in the front and rear of the robot, the ToF Camera on the front of the chassis, and ' +
+    'the lidar on the connection between the chassis and the main body part.',
 }
 
 const COLLABORATION = {
   title: 'Multi-robot collaboration',
   body:
-    'For large venues and multi-floor sites, collaboration between multiple robots further improves ' +
-    'the efficiency of delivery and guidance. One map, one job queue, no two units meeting head-on.',
+    'For large hotels/office buildings, the collaboration between multiple robots can further improve ' +
+    'the efficiency of delivery and guidance.',
 }
 
 export const PRODUCTS: Product[] = [
   {
     slug: '',
     navLabel: 'Service robot',
-    name: 'Host',
-    title: 'Service Robot',
-    tagline: 'front-of-house service robot',
+    name: 'Rockit',
+    title: 'Hotel Service Robot',
+    tagline: 'hotel service robot',
+    heroLead:
+      'Delivery, guidance and reception for hotels, offices and venues. ' +
+      'It works the floor on its own, all day.',
     intro:
       'Rockit combines elements of technology, simplicity and fashion and is eye-catching for its ' +
       'cool and cute appearance. It redefines the concept “commercial service robot” by having its ' +
@@ -97,39 +102,39 @@ export const PRODUCTS: Product[] = [
     dualScreen: {
       title: 'Simple dual-screen design',
       body:
-        'A dual-screen design pairs a 10.1-inch top touch screen with a 24-inch rear high-definition ' +
-        'display. Set event pictures, video and other files against cruising tasks to get promotion ' +
-        'out of every trip the robot makes.',
+        'A new dual-screen design is provided, consisting of a 10.1-inch top touch screen and a ' +
+        '24-inch rear high-definition display. You can set event pictures, videos and other files ' +
+        'for cruising tasks to achieve better promotion effects.',
     },
     voice: {
-      title: 'One-click switch of TBD+ voice options',
+      title: 'One-click switch of 20+ voice options',
       body:
-        'Host offers a range of voices — from bright and playful to calm and formal — so each venue ' +
-        'can set the tone it considers proper, and change it per shift.',
+        'Rockit offers more than 20 voice options ranging from the cute voice of kids, attractive ' +
+        'voice of men, and innocent voice of little girls to allow hotels to set the type they ' +
+        'consider as proper.',
       voices: VOICES,
     },
     recognition: {
-      title: 'Say hello to visitors by human recognition',
+      title: 'Say hello to visitors by human recognition technology',
       body:
-        'Set reception points at the front desk or anywhere indoors and Host identifies an approaching ' +
-        'guest automatically, then opens with a greeting instead of waiting to be tapped.',
+        'You can set up reception points at the front desk or anywhere indoors to automatically ' +
+        'identify human bodies and to attract customers.',
     },
     cruising: {
       title: 'Cruising for advertising',
       body:
-        'Customise the cruising route for off-peak delivery hours and put the rear display to work as ' +
-        'an advertising surface — dessert menu, happy hour, tomorrow’s special — instead of parking ' +
-        'the robot in a corner.',
+        'The cruising route can be customized for the off-peak hours of delivery, with the rear ' +
+        'large screen used as an advertising tool to achieve promotion effects.',
     },
     featuresLeft: [
-      { title: 'Room service', body: 'By scanning a QR code, the robot can be asked to deliver items to — or collect items from — any location on the property.' },
-      { title: 'Self-assisted lift travel', body: 'The lift control system talks to the building directly, so one robot covers every floor without a person to press the button.' },
-      { title: 'Autonomous obstacle avoidance', body: 'Multiple sensors update the optimal path in real time, reading both static and moving obstacles along the planned route.' },
+      { title: 'Room service', body: 'By scanning a QR code, the robot can be asked to deliver items to or pick up items from any location in hotels.' },
+      { title: 'Self-assisted elevator taking', body: 'The elevator control system developed by RoboDine supports cross-floor operations anytime and anywhere.' },
+      { title: 'Autonomous obstacle avoidance', body: 'Multiple sensors allow the update of optimal path in real time by sensing the static or dynamic obstacles in planned paths.' },
     ],
     featuresRight: [
-      { title: 'Entertainment and interaction', body: 'Voice interaction, LED strip control and photo capture make it a service robot guests actually want to approach.' },
-      { title: 'Ring microphone array', body: 'A multi-channel ring array with built-in speaker lets the robot hold a conversation and answer questions about its surroundings.' },
-      { title: 'Reinforced chassis', body: 'Tested over carpet and thresholds, the chassis climbs inclines up to 10° and obstacles up to 10 mm.' },
+      { title: 'Entertainment and interaction', body: 'Interactive functions such as voice interaction, LED strip light control and photographing are available to make the product a commercial service robot in the real sense.' },
+      { title: 'Ring-shaped microphone array', body: '6-channel ring-shaped microphone array with built-in high-frequency speaker, allows the robot to have conversation with users and provide them with professional information about their surrounding environment.' },
+      { title: 'Reinforced chassis', body: 'After 500+ tests, the robot is now able to climb over carpets inclined up to an angle of 10° and obstacles as high as 25mm.' },
     ],
     avoidance: AVOIDANCE,
     collaboration: COLLABORATION,

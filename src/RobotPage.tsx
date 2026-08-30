@@ -18,6 +18,10 @@ import WorkData from './sections/WorkData'
 import Parameters from './sections/Parameters'
 import Contact from './sections/Contact'
 
+import humanRecognition from './assets/human-recognition.png'
+import cruisingAdvertising from './assets/cruising-advertising.png'
+import scanOverlay from './assets/scan-overlay.png'
+
 /*
  * Product page — one shared layout for the whole robot range.
  *
@@ -54,13 +58,16 @@ export default function RobotPage({ product }: { product: Product }) {
           title={product.recognition.title}
           body={product.recognition.body}
           align="left"
-          imageLabel="Full-bleed — robot greeting a guest at a reception point"
+          image={humanRecognition}
+          imageAlt="Rockit greeting an arriving guest at a hotel reception point"
+          overlay={scanOverlay}
         />
         <FullBleedFeature
           title={product.cruising.title}
           body={product.cruising.body}
           align="right"
-          imageLabel="Full-bleed — robot cruising a floor showing a promotion"
+          image={cruisingAdvertising}
+          imageAlt="Rockit cruising a hotel floor with a promotion on its rear display"
         />
 
         <ProductFeatures product={product} />

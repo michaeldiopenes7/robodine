@@ -1,10 +1,27 @@
-/* ============ RoboDine Host product page ============
+/* ============ RoboDine Rockit product page ============
    Layout mirrors the Robint Rockit reference section-for-section.
    Uses the tokens from index.css and the shared primitives in App.css
    (.btn, .nav, .page). Everything below is scoped to .rp so it cannot
    leak into the landing page. */
 
 .rp { background: var(--ground); }
+
+/* The nav is fixed, so an anchored section would otherwise scroll to y=0
+   and sit underneath it. Every jump target clears the nav's height plus a
+   little breathing room. */
+.rp [id],
+.rp-phead[id] {
+  scroll-margin-top: clamp(96px, 12vw, 124px);
+}
+
+/* Images and video are page furniture, not content to be dragged out of
+   it — a stray drag leaves a ghost image and can drop the file into
+   another tab. */
+.rp img,
+.rp video {
+  -webkit-user-drag: none;
+  user-select: none;
+}
 
 /* Never hyphenate marketing copy — broken words read as sloppy typesetting. */
 .rp,
@@ -112,6 +129,33 @@
   object-position: center;
 }
 
+/* Scrim under the hero copy, which sits right of the robot. Lighter than
+   the one on the full-bleed sections — the marble is already bright, so
+   this only needs to settle the ground under the heading rather than
+   carry it. The robot side stays untouched. */
+.rp-phead::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.80) 0%,
+    rgba(255, 255, 255, 0.62) 24%,
+    rgba(255, 255, 255, 0.28) 46%,
+    rgba(255, 255, 255, 0) 64%
+  );
+}
+
+/* No scrim on mobile: the robot is hidden there, so the copy sits over
+   plain marble with nothing needing to be held back. */
+@media (max-width: 780px) {
+  .rp-phead::after {
+    background: none;
+  }
+}
+
 .rp-phead-inner {
   position: relative;
   z-index: 1;
@@ -149,6 +193,19 @@
      clears AAA over every part of the marble, including the lit columns. */
   color: #0B1A20;
 }
+/* One line under the hero heading — enough to say what the robot does
+   without competing with the title above it. */
+.rp-phead-lead {
+  margin-top: 18px;
+  max-width: 34ch;
+  /* Between the full ink and the muted grey: soft enough to sit under the
+     heading, solid enough not to read as thin over bright marble. */
+  color: #2C4049;
+  font-size: clamp(16px, 1.35vw, 19px);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
 .rp-phead-btn {
   display: inline-flex;
   align-items: center;
@@ -182,9 +239,9 @@
 .rp-video {
   display: block;
   width: 100%;
-  /* Fills the content column, matching the width of the image rows in
-     the sections below it. */
-  max-width: none;
+  /* Slightly wider than the intro paragraph above it, so the clip reads
+     as the larger element without running to the full column. */
+  max-width: 112ch;
   height: auto;
   margin: 0 auto;
   aspect-ratio: 16 / 9;
@@ -193,38 +250,78 @@
   object-fit: cover;
 }
 
+/* ---- 3. dual-screen image ---- */
+.rp-collab-video,
+.rp-avoid-img,
+.rp-dual-img {
+  display: block;
+  width: 100%;
+  max-width: 112ch;
+  height: auto;
+  margin: 0 auto;
+  border-radius: var(--radius);
+}
+
 /* ---- image rows ---- */
 .rp-imgs { display: grid; gap: clamp(10px, 1.2vw, 16px); }
 .rp-imgs-2 { grid-template-columns: 1fr 1fr; }
 
-.rp-imgs-mosaic {
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    'a c'
-    'b c';
-}
-.rp-mosaic-a { grid-area: a; }
-.rp-mosaic-b { grid-area: b; }
-.rp-mosaic-c { grid-area: c; height: 100%; aspect-ratio: auto; }
 
 /* ---- 4. voice options ---- */
 .rp-audio-stage {
   position: relative;
   display: grid;
   place-items: center;
-  min-height: clamp(280px, 34vw, 420px);
+  min-height: clamp(340px, 40vw, 520px);
   margin-bottom: clamp(34px, 4vw, 56px);
 }
-.rp-audio-wave {
+
+/* ---- waveform ----
+   Sits behind the robot and spans wider than the content column, so the
+   trace runs off toward both edges the way a long recording would. */
+.rp-wave {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: min(112ch, 100%);
+  height: clamp(170px, 22vw, 280px);
   z-index: 0;
-  height: 100%;
+  pointer-events: none;
+}
+.rp-wave rect { transform-box: fill-box; transform-origin: center; }
+
+/* The trace is never static: it drifts at rest and lifts while a sample
+   plays. The two states are separated so pausing eases down rather than
+   cutting out — swapping animation-duration on a running animation
+   restarts its timing and snaps, so instead the keyframes stay at one
+   fixed tempo and `scale` carries the change in energy, which the
+   transition below can interpolate smoothly. */
+.rp-wave rect {
+  animation: rp-wave-pulse 2.6s ease-in-out infinite;
+  scale: 1 0.55;
+  transition: scale 900ms cubic-bezier(0.33, 1, 0.68, 1);
+}
+.rp-wave.is-active rect {
+  scale: 1 1;
+}
+@keyframes rp-wave-pulse {
+  0%, 100% { transform: scaleY(0.90); }
+  50%      { transform: scaleY(1.22); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rp-wave rect { animation: none; transition: none; }
 }
 .rp-audio-robot {
   position: relative;
   z-index: 1;
-  width: clamp(150px, 18vw, 230px);
+  filter: drop-shadow(0 18px 30px rgba(9, 30, 40, 0.16));
+  width: clamp(200px, 24vw, 310px);
+}
+.rp-audio-robot img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .rp-audio-cards {
@@ -292,31 +389,158 @@
 }
 
 /* ---- 5 & 6. full-bleed image with overlaid copy ---- */
-.rp-fit { isolation: isolate; }
+.rp-fit {
+  isolation: isolate;
+  /* The scan overlay extends past this box, so the section clips it. */
+  overflow: hidden;
+}
+/* Locks the overlay to the photograph rather than to the section.
+   The wrapper reproduces object-fit: cover in layout terms — it keeps the
+   image's 1920x950 ratio and takes whichever of width/height is the
+   binding constraint, overflowing on the other axis exactly as the cover
+   crop does. Because the overlay is positioned inside this box, it scales
+   with the picture instead of the section, so the cone stays on the
+   sensor at every screen size. */
+.rp-fit-media {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  /* 1920 / 950 = 2.0211. The section is much wider than it is tall, so
+     width is nearly always the binding constraint; the vh term only exists
+     for the rare tall-and-narrow case. Capping it keeps a big monitor from
+     scaling the picture far past the section and walking the robot out of
+     position. */
+  width: min(max(100%, 202.11vh), 128%);
+  height: max(100%, 49.48vw);
+  z-index: 0;
+}
+
+/* On narrow screens the section is tall and the cover crop blows the
+   photograph up until neither the robot nor its scan is legible. There the
+   wrapper fits the whole frame instead — the section stops enforcing a
+   height, the media sits at its natural ratio, and the copy runs beneath
+   it rather than over it. The overlay still scales with the picture. */
+@media (max-width: 780px) {
+  /* The copy still sits over the picture, so the section keeps one row.
+     The cover crop is capped instead: the media fills the width and takes
+     its natural height, and the section is sized to match rather than the
+     media being blown up to fill a tall section. */
+  .rp-fit-media {
+    top: 0;
+    left: 0;
+    translate: none;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+  }
+  .rp-fit-copy {
+    /* No aspect-ratio here: forcing the picture's 2:1 shape onto the copy
+       grid made the container far wider than a phone viewport and pushed
+       the text off the right edge. Height comes from the copy itself, and
+       the media behind it keeps its own ratio. */
+    width: 100%;
+    max-width: 100%;
+    min-height: clamp(280px, 62vw, 420px);
+    align-content: center;
+    justify-items: start;
+    text-align: left;
+    padding: clamp(24px, 6vw, 40px) var(--pad);
+  }
+
+  /* The cone cannot be placed convincingly against the mobile crop, and
+     it competes with the copy at this size, so it is dropped entirely. */
+  .rp-fit-scan { display: none; }
+}
+
 .rp-fit-bg {
   position: absolute;
   inset: 0;
-  z-index: 0;
-  border-radius: 0;
+  width: 100%;
   height: 100%;
+  /* The wrapper already matches the image's ratio, so this only guards
+     against sub-pixel rounding. */
+  object-fit: cover;
 }
 
-/* Backdrop placeholders carry their label in a corner rather than dead
-   centre, so it never collides with the copy laid over the top, and are
-   dimmed so the placeholder hatching stays quiet behind that copy.
-   The hero backdrop is a real photograph now, so it is deliberately not
-   listed here — it must render unfiltered, at full opacity. */
-.rp-fit-bg,
-.rp-audio-wave {
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-end;
-  gap: 8px;
-  padding: 18px 22px;
-  opacity: 0.55;
+/* Scanning effect layered over the recognition photograph. It sits above
+   the image but below the scrim and copy, and breathes on a slow loop so
+   the section reads as actively sensing rather than a still frame. */
+.rp-fit-scan {
+  position: absolute;
+  /* Positioned so the cone's apex meets the sensor on the robot's top
+     edge. Percentages resolve against the section rather than the image —
+     the section is full-bleed and the photo is object-fit: cover — so
+     these are measured from the rendered result, not the asset's own
+     proportions. */
+  left: 50%;
+  top: 50%;
+  width: 17%;
+  height: auto;
+  translate: 16% -75%;
+  /* Scale from the cone's apex — its lower-right corner — so growing the
+     effect keeps it pinned to the sensor rather than walking it off. */
+  transform-origin: 100% 100%;
+  scale: 1.22;
+  z-index: 1;
+  pointer-events: none;
+  animation: rp-scan-fade 4.5s ease-in-out infinite;
 }
-.rp-fit-bg span,
-.rp-audio-wave span { max-width: 28ch; text-align: right; }
+@keyframes rp-scan-fade {
+  0%, 100% { opacity: 0.15; }
+  50%      { opacity: 0.95; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rp-fit-scan { animation: none; opacity: 0.7; }
+}
+
+/* Scrim on the copy side only, so the text has a settled ground to sit on
+   while the far side of the photograph stays untouched. Direction follows
+   the copy alignment. */
+.rp-fit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.rp-fit:has(.rp-fit-left)::after {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.82) 26%,
+    rgba(255, 255, 255, 0.42) 48%,
+    rgba(255, 255, 255, 0) 68%
+  );
+}
+.rp-fit:has(.rp-fit-right)::after {
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.97) 0%,
+    rgba(255, 255, 255, 0.93) 30%,
+    rgba(255, 255, 255, 0.74) 52%,
+    rgba(255, 255, 255, 0.34) 72%,
+    rgba(255, 255, 255, 0) 88%
+  );
+}
+
+/* On narrow screens the copy reads from the left edge, so the scrim runs
+   left-to-right — solid behind the text, clearing before mid-frame so the
+   robot and its scan stay untouched. */
+@media (max-width: 780px) {
+  .rp-fit:has(.rp-fit-left)::after,
+  .rp-fit:has(.rp-fit-right)::after {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(255, 255, 255, 0.93) 34%,
+      rgba(255, 255, 255, 0.74) 58%,
+      rgba(255, 255, 255, 0.36) 78%,
+      rgba(255, 255, 255, 0) 92%
+    );
+  }
+}
+
 .rp-fit-copy {
   position: relative;
   z-index: 1;
@@ -330,6 +554,9 @@
 .rp-fit-copy > * { max-width: 46ch; }
 .rp-fit-right > * { margin-left: auto; }
 .rp-fit-copy h2 {
+  /* Wide enough to break into two lines, narrow enough that it stacks
+     instead of running the section width into the robot. */
+  max-width: 28ch;
   font-size: clamp(26px, 3.4vw, 40px);
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -349,7 +576,8 @@
   align-items: center;
 }
 .rp-func-col { display: grid; gap: clamp(30px, 4vw, 54px); }
-.rp-func-img { justify-self: center; width: 100%; max-width: 380px; }
+.rp-func-img { justify-self: center; width: 100%; max-width: 470px; }
+.rp-func-img img { display: block; width: 100%; height: auto; }
 .rp-func-item h3 {
   display: flex;
   align-items: center;
@@ -403,18 +631,53 @@
   margin: 0 auto;
 }
 
-/* ---- 11. parameters ---- */
+/* ---- 11. parameters ----
+   A card grid rather than a long stack of rows: three columns on desktop
+   keeps twelve specs to four compact rows instead of six tall ones, and
+   the cards give the section some substance against the grey band. */
 .rp-params {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: clamp(32px, 6vw, 90px);
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.1vw, 14px);
   max-width: 1160px;
   margin: 0 auto;
 }
-.rp-param { padding: 24px 0; border-bottom: 1px solid var(--line); }
-.rp-param-label { color: var(--muted-2); font-size: 14.5px; }
-.rp-param-val { margin-top: 10px; font-size: clamp(17px, 1.5vw, 21px); }
-.rp-param-val.is-tbd { color: var(--muted-2); font-style: italic; }
+.rp-param {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: var(--ground);
+  border: 1px solid var(--line);
+  transition: border-color .16s ease, box-shadow .16s ease;
+}
+.rp-param:hover {
+  border-color: #CBD8E1;
+  box-shadow: 0 6px 18px rgba(11, 26, 32, 0.05);
+}
+.rp-param-label {
+  color: var(--muted-2);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.rp-param-val {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(16px, 1.35vw, 19px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 980px) {
+  .rp-params { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .rp-params { grid-template-columns: 1fr; }
+  .rp-param { padding: 14px 16px; }
+}
 
 .rp-fine {
   margin-top: 18px;
@@ -490,18 +753,9 @@
     min-height: clamp(460px, 72vh, 620px);
   }
   .rp-phead-intro h1 { font-size: clamp(32px, 8.5vw, 46px); }
+  .rp-phead-lead { margin-left: auto; margin-right: auto; }
   .rp-imgs-2 { grid-template-columns: 1fr; }
-  .rp-imgs-mosaic {
-    grid-template-columns: 1fr;
-    grid-template-areas: 'a' 'b' 'c';
-  }
-  .rp-mosaic-c { aspect-ratio: 3 / 4; }
-  .rp-workdata { grid-template-columns: 1fr; }
-  .rp-params { grid-template-columns: 1fr; }
-  .rp-fit-copy > *, .rp-fit-right > * { max-width: none; margin-left: 0; }
-  .rp-foot-cols { grid-template-columns: 1fr; }
-}
-
+  
 /* ---- 12. contact ----
    Dark surface so the closing section reads as its own block rather than
    running on from the grey parameters band above it. The ask sits on the

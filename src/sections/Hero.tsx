@@ -33,6 +33,7 @@ export default function Hero({ product }: { product: Product }) {
 
         <div className="rp-phead-intro">
           <h1>{product.title}</h1>
+          <p className="rp-phead-lead">{product.heroLead}</p>
           <a className="rp-phead-btn" href="#contact">Contact Us</a>
         </div>
       </div>
