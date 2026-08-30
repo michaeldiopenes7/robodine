@@ -4,11 +4,13 @@ import type { Product } from '../products'
 /*
  * 2. Intro paragraph + product video.
  *
- * The video lives in public/media rather than src/assets so Vite serves it
- * as a static file the browser can stream, instead of bundling it. It is
- * not autoplayed — a 106s clip should start when someone asks for it — and
- * preload="metadata" fetches only the header until then, so the page does
- * not pull megabytes on load. The poster fills the frame in the meantime.
+ * The clip runs as a muted, looping showreel with no controls, so it plays
+ * itself the way the reference page does. `muted` is what makes autoplay
+ * permitted at all — browsers block autoplay with sound — and playsInline
+ * stops iOS from taking it fullscreen.
+ *
+ * It lives in public/media rather than src/assets so Vite serves it as a
+ * static file the browser can stream instead of bundling it.
  */
 export default function Intro({ product }: { product: Product }) {
   return (
@@ -16,15 +18,17 @@ export default function Intro({ product }: { product: Product }) {
       <p className="rp-intro">{product.intro}</p>
       <video
         className="rp-video"
-        controls
+        autoPlay
+        muted
+        loop
         playsInline
-        preload="metadata"
+        preload="auto"
         poster="/media/product-video-poster.jpg"
+        aria-label="Rockit service robot in operation"
         width={1280}
         height={720}
       >
         <source src="/media/product-video.mp4" type="video/mp4" />
-        Your browser cannot play this video.
       </video>
     </Band>
   )
