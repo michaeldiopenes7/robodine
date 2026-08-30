@@ -182,9 +182,9 @@
 .rp-video {
   display: block;
   width: 100%;
-  /* Sits narrower than the full content column so the clip reads as a
-     framed showreel rather than a full-bleed banner. */
-  max-width: 1040px;
+  /* Fills the content column, matching the width of the image rows in
+     the sections below it. */
+  max-width: none;
   height: auto;
   margin: 0 auto;
   aspect-ratio: 16 / 9;
