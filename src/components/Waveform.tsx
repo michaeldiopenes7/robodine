@@ -1,3 +1,5 @@
+import type { CSSProperties } from 'react'
+
 /*
  * Audio waveform backdrop for the voice section.
  *
@@ -6,12 +8,10 @@
  * here: many thin bars, a smooth swell from near-silence at both edges to
  * a dense middle, and enough irregularity that no repeating pattern reads.
  *
- * Heights come from layered sines at incommensurable frequencies plus a
- * deterministic jitter, so the trace never repeats but is identical on
- * every render — no jitter between paints.
- *
- * `active` speeds the idle drift up into a livelier pulse. The bars are
- * always in motion; playing simply raises the energy.
+ * The idle silhouette comes from layered sines at incommensurable
+ * frequencies plus deterministic jitter. During playback, live analyser
+ * levels from the voice sample drive the bars so the trace punches on
+ * syllables instead of waving on its own.
  */
 
 const BARS = 150
@@ -52,9 +52,29 @@ function barHeight(i: number) {
   return Math.max(0.012, swell * lobes * detail * jitter * peak)
 }
 
-export default function Waveform({ active = false }: { active?: boolean }) {
+function smoothLevel(levels: number[], index: number) {
+  if (!levels.length) return 0
+
+  const prev = levels[Math.max(0, index - 1)] ?? 0
+  const current = levels[index] ?? 0
+  const next = levels[Math.min(levels.length - 1, index + 1)] ?? 0
+
+  return prev * 0.22 + current * 0.56 + next * 0.22
+}
+
+export default function Waveform({
+  active = false,
+  levels = [],
+}: {
+  active?: boolean
+  levels?: number[]
+}) {
   const gap = VIEW_W / BARS
   const barW = gap * 0.30
+  const midpoint = (BARS - 1) / 2
+  const energy = levels.length
+    ? levels.reduce((total, level) => total + level, 0) / levels.length
+    : 0
 
   return (
     <svg
@@ -74,7 +94,18 @@ export default function Waveform({ active = false }: { active?: boolean }) {
       </defs>
 
       {Array.from({ length: BARS }, (_, i) => {
-        const h = barHeight(i) * (VIEW_H * 0.92)
+        const distanceFromCenter = Math.abs(i - midpoint) / midpoint
+        const centerWeight = (1 - distanceFromCenter) ** 1.9
+        const mirroredIndex = levels.length
+          ? Math.min(levels.length - 1, Math.floor((1 - distanceFromCenter) * levels.length))
+          : 0
+        const sample = smoothLevel(levels, mirroredIndex)
+        const amp = active
+          ? Math.min(1, (0.035 + energy * 0.85 + sample * 0.65) * (0.26 + centerWeight * 1.55))
+          : 0
+        const flutter = 0.86 + noise(i + 12) * 0.32
+        const waveScale = active ? 0.52 + centerWeight * 0.20 + amp * 2.12 : 0.55
+        const h = barHeight(i) * (VIEW_H * 0.50)
         const x = i * gap + (gap - barW) / 2
         return (
           <rect
@@ -86,8 +117,22 @@ export default function Waveform({ active = false }: { active?: boolean }) {
             rx={barW / 2}
             fill="url(#rp-wave-grad)"
             /* Stagger keeps the motion travelling across the trace rather
-               than every bar breathing in unison. */
-            style={{ animationDelay: `${(i % 17) * 55}ms` }}
+               than every idle bar breathing in unison. */
+            style={{
+              '--amp': amp.toFixed(3),
+              '--center': centerWeight.toFixed(3),
+              '--wave-opacity': (active
+                ? 0.42 + centerWeight * 0.18 + amp * 0.38
+                : 0.52
+              ).toFixed(3),
+              '--wave-scale': waveScale.toFixed(3),
+              '--live-rest': (0.90 + centerWeight * 0.08).toFixed(3),
+              '--live-peak': (1.02 + amp * flutter * 0.28).toFixed(3),
+              '--live-rebound': (0.96 + amp * 0.12).toFixed(3),
+              '--live-lift': `${(-3 * centerWeight).toFixed(2)}px`,
+              '--live-drop': `${(2 * centerWeight).toFixed(2)}px`,
+              animationDelay: `${(i % 17) * 55}ms`,
+            } as CSSProperties}
           />
         )
       })}

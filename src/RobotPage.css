@@ -291,23 +291,34 @@
 }
 .rp-wave rect { transform-box: fill-box; transform-origin: center; }
 
-/* The trace is never static: it drifts at rest and lifts while a sample
-   plays. The two states are separated so pausing eases down rather than
-   cutting out — swapping animation-duration on a running animation
-   restarts its timing and snaps, so instead the keyframes stay at one
-   fixed tempo and `scale` carries the change in energy, which the
-   transition below can interpolate smoothly. */
+/* Resting trace breathes quietly. During playback the Web Audio analyser
+   owns the bar heights, so the visualizer punches with the voice instead
+   of running a decorative loop. */
 .rp-wave rect {
   animation: rp-wave-pulse 2.6s ease-in-out infinite;
-  scale: 1 0.55;
-  transition: scale 900ms cubic-bezier(0.33, 1, 0.68, 1);
+  opacity: var(--wave-opacity, 0.52);
+  scale: 1 var(--wave-scale, 0.55);
+  transition:
+    opacity 140ms linear,
+    scale 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .rp-wave.is-active rect {
-  scale: 1 1;
+  animation: rp-wave-live 620ms cubic-bezier(0.33, 1, 0.68, 1) infinite;
 }
 @keyframes rp-wave-pulse {
   0%, 100% { transform: scaleY(0.90); }
   50%      { transform: scaleY(1.22); }
+}
+@keyframes rp-wave-live {
+  0%, 100% {
+    transform: translateY(0) scaleY(var(--live-rest, 0.9));
+  }
+  42% {
+    transform: translateY(var(--live-lift, 0)) scaleY(var(--live-peak, 1.08));
+  }
+  68% {
+    transform: translateY(var(--live-drop, 0)) scaleY(var(--live-rebound, 1));
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .rp-wave rect { animation: none; transition: none; }
