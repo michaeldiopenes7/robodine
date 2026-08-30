@@ -178,6 +178,17 @@
   color: var(--text);
 }
 
+/* ---- product video ---- */
+.rp-video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  background: var(--panel);
+  object-fit: cover;
+}
+
 /* ---- image rows ---- */
 .rp-imgs { display: grid; gap: clamp(10px, 1.2vw, 16px); }
 .rp-imgs-2 { grid-template-columns: 1fr 1fr; }

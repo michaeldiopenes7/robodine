@@ -28,3 +28,6 @@ dist-ssr
 
 # Local backups
 _backup-*/
+
+# Video masters — ship the compressed copy in public/media instead
+src/assets/*.mp4
